@@ -5,54 +5,60 @@ Theory Documentation : Advanced PCB Layout
 
 ## Purpose:
 
-The Infrared Keyboard is used as a first printed circuit board creation project. 
-The Infrared Keyboard will allow infrared light to transmit data to a personal computer rather than transmitting through a traditional hardwired connection.
-This keyboard will utilize the Attiny85-20SU microcontroller, USB power 10119194-001LF, and infrared receiver vs1838b.
+The VNA Calibration Board is used as a second printed circuit board creation project. 
+The VNA Calibration Board allows for a way to easily calibrate a vector network analyzer for radio frequency use.
+This board will show the characteristics of a lowpass filter configuration. 
+This board will utilize 50 ohm traces, SMA connectors, a 0603 resistor, and a 0603 capacitor. 
+This board additionally contains connections for through, open, and a lowpass filter configurations.
 
 
-## How does it work?
+## How does a VNA work to analyze the Calibration Board?
 
-As stated above the Infrared Keyboard will allow infrared light to transmit data to a personal computer rather than transmitting through a traditional hardwired connection.
-The ATtiny85 will control the IR receiver's input and output through the RCV LED shown in the IR_Schematic. 
-The RCV LED will turn on when a signal is received from the receiver. 
-Similarly, a PWR LED will be 
+A VNA, vector network analyzer, allows for testing to occur on the specifications of components. 
+A VNA also allows for simulation verification, and to show component signal integrity at different stages for transmitting and receiving. 
+Some ways a VNA shows signal integrity is through received signal isolation from the transmitted signal, and unwanted signal filtering. 
+The VNA provides a source input signal to enter into one SMA of the Calibration Board. 
+A reflected signal will then transfer to the receiver of the VNA, and an output signal will exit through the other end of the board. 
+Both reflected signal and output signal will transfer to the receivers, and then be displayed thorugh either a PC or a display.
+Then a frequency range, dynamic range, trace noise, and measurement speed will be displayed, which are some characteristics of the lowpass filter we are looking to analyze.
 
+## Connections:
 
-## Electrical Connections:
+Three different configurations are instilled within the given VNA Calibration test card, a through, open, and lowpass filter. 
+Connector to VNA was chosen through an SMA connector. 
+Footprint of given SMA connector is attached in files.
+50 ohm traces were used to make connections between connectors and to components.
+A ground plane was attached to the bottom.
+Ground shapes were added to the top. 
+When adding ground shapes to the top layer of the board, it is important to ensure that the distance between the ground shapes and the output trace is far enough away to ensure signal integrity is upheld.
+Using a microstrip calculator the distance found to create a 50 ohm trace from the top ground shape must be at least 0.47mm, which was calculated using the standard FR-4 substrate.
+The length of the microstrip also needs to uphold the 3*Width theory, which states that the distance found between the 50 ohm trace and top ground shape must be multiplied by 3.
+This distance will then be used to show the length of the microstrip, which should be 1.41mm.
+Based off of VNA Calibration Board design, minimum clearance is ensured.
+Vias were also added to the board to ensure an equal current plane throughout the board.
+Additional logos were added to the board based on aesthetic decisions. 
 
-All pinnout connections within this schematic have been made according to component data sheets made in the reference section below. 
-Voltage input and ground connections are connected properly to the ATtiny85, which is shown on page 2 of the ATtiny85 data sheet.
-The USB2.0 voltage and ground connections are shown on page 1 of the USB2.0 data sheet, and the IR receiver voltage and ground connections are found on page 1 through 3 of the vs1838b data sheet.
-Any additional electrical component connections to ground and voltage input are connected properly according to part specification. 
-The ATtiny85 has connections to the USB connector through the D- and D+ pins of the USB. 
-The D- pin should be connected to the PB3 pinnout of the ATtin85, which is the CLK1.
-The D+ pin should be connected to the ATtiny85 PB4 pin, which is CLK 0. 
-The IR receiver will be connected to the PB1 pin of the ATtiny85, which is the MISO connection. 
-This pinnout willl allow the microcontroller to receive the data that is being transmitted from the IR receiver.
-Shunt Capacitors are connected to pin 8, Vcc pin of the ATtiny85, to prevent high frequency voltage spikes.
-Additionally the reset pin is set to pin 8 of the ATtiny85 to set the reset pin as high.
+## Problems when designing: 
 
-
-## Programmer:
-
-While programming the ATtiny85, use the IR2USB_Keyboard.ino and the IR2USB_Serial.ino found on Stefan Wagner's github repository listed in reference below.
-Pins that need to be programmed through arduino or the Analog Discovery2 are as listed: PB5, PB3, PB4, and PB2. 
-The PB1 pin will be connected to the IR receiver, the PB0 pin will be connected to the PWR LED, pin 8 will connect to Vcc, and pin 4 will connect to GND.
-Please make sure you BURN THE BOOTLOADER!
-You want your ATtiny85 to have code if it is a SMT component.
-
+An integral problem to the design was ensuring that enough thermal relief points were adding to the ground pads of the SMA.
+Two thermal relief points are necessary at a minimum to avoid errors. 
+To fix this concern, thermal relief points were added to the bottom and sides of each SMA ground pad. 
+Another integral problem was found through connection concerns from the output traces. 
+All output traces were throwing warnings when the output 50 ohm traces had the same net name.
+To fix this problem, different net names were added to the output traces named from the configuration.
 
 ### Side note:
 
-The ATtiny85 will be in control of the keyboard, so its placement was made towards the middle of the schematic / PCB due to preference.
-This is shown through the IRKeyboard_Schematic, as well as much of the rest of the schematic was placed in the correct orientation as will be placed in the PCB.
-Voltage concerns should not be an issue, because the maximum voltage that the IR receiver can withstand is 5.5V and the minimum voltage is 2.7V.
-The voltage connected to the ATtiny85 will be 5V.
-To ensure that voltage entering the ATtiny85 remains at 5V and not larger, 3.6V voltage regulators will be placed near the PB3 and PB4 pins of the ATtiny85 to act as voltage regulators for the board.
-These zener diodes are able to ensure that the microcontroller can fully run on 5V power as they limit the USB voltage output.
-Also please ensure that the voltage used during testing purposes is limited to 5V, and that all electrical component (i.e. Diodes, Capacitors, etc...) are placed in the correct orientation for current flow.
-ALSO DOWNLOAD DIGIKEY X KICAD LIBRARY!!
+Board is subject to change. 
+Ensure that microstrip distance between ground shapes are within minimum acceptable clearance.
+Minimum clearance can also be found in IPC-2221 standard.
+
 
 ## References:
 
-- [Stefan Wagner Git](https://github.com/wagiminator)
+- [SMA Connector](https://www.digikey.com/en/products/detail/amphenol-rf/132255-11/4948012?utm_adgroup=Connectors%20and%20Interconnects&utm_source=google&utm_medium=cpc&utm_campaign=Shopping_Supplier_Amphenol%20RF_0115_Co-op&utm_term=&utm_content=Connectors%20and%20Interconnects&gclid=Cj0KCQjw8e-gBhD0ARIsAJiDsaUrfOlJ-fbGHJ9TSMtNrpHwP0aa9LQ3nOot902IX43sAEF8okGkE1EaAjHVEALw_wcB)
+- [0603 Resistors](https://www.digikey.com/en/products/detail/vishay-dale/CRCW0603249RFKEBC/7928698?utm_adgroup=Resistors&utm_source=google&utm_medium=cpc&utm_campaign=Shopping_Supplier_Vishay&utm_term=&utm_content=Resistors&gclid=Cj0KCQjw8e-gBhD0ARIsAJiDsaVE2eXfdvGD4j4WN10YVxKx1yiL2tfwIAedk80d4FrehSMFS40kiNoaAhX7EALw_wcB)
+- [0603 Capacitors](https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B104KA8NNNC/3886664)
+- [VNA Calibration](http://rfic.eecs.berkeley.edu/142/labs/resources/Calibration.pdf)
+- [VNA Theory](https://download.tek.com/document/70W_60918_0_Tek_VNA_PR.pdf)
+- [Microstrip Impedance Calculator](https://www.allaboutcircuits.com/tools/microstrip-impedance-calculator/)
