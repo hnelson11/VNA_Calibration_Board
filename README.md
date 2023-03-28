@@ -31,9 +31,10 @@ Footprint of given SMA connector is attached in files.
 A ground plane was attached to the bottom.
 Ground shapes were added to the top. 
 When adding ground shapes to the top layer of the board, it is important to ensure that the distance between the ground shapes and the output trace is far enough away to ensure signal integrity is upheld.
-Using a microstrip calculator the distance found to create a 50 ohm trace from the top ground shape must be at least 0.47mm, which was calculated using the standard FR-4 substrate.
-The length of the microstrip also needs to uphold the 3*Width theory, which states that the distance found between the 50 ohm trace and top ground shape must be multiplied by 3.
-This distance will then be used to show the length of the microstrip, which should be 1.41mm.
+
+Using a microstrip calculator the distance found to create a 50 ohm trace from the top ground shape must be at least **0.47mm**, which was calculated using the standard _FR-4 substrate_.
+The length of the microstrip also needs to uphold the **3*Width theory**, which states that the distance found between the 50 ohm trace and top ground shape must be multiplied by 3.
+This distance will then be used to show the length of the microstrip, which should be **1.41mm**.
 Based off of VNA Calibration Board design, minimum clearance is ensured.
 Vias were also added to the board to ensure an equal current plane throughout the board.
 Additional logos were added to the board based on aesthetic decisions. 
