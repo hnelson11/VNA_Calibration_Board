@@ -1,0 +1,34 @@
+###PCB Layout Constraints Document
+
+System Requirements: 
+The VNA Calibration board must have a through and an open connection to SMA connectors to provide a proper calibration to the VNA.
+A lowpass filter was added to the last SMA connection on the PCB. 
+This was to see the characteristics of a lowpass filter through the VNA, but different filter configurations are applicable.
+
+Electrical Requirements:
+A VNA is required for this test structure. 
+Trace impedance must match 50 ohms, a trace width of 0.025 was used to produce impedance.
+SMA connectors must be connected to the ground shapes located on the top side of the board.
+SMAs must be a solid fill, to fix thermal relief concerns. 
+Output trace of SMAs depends on configuration, open, through, lowpass filter.
+Resistors 0603 and capacitor 0603 are located to fullfill lowpass filter.
+Characteristics will be checked for filter.
+
+Physical Constraints:
+A standard FR-4 board must be used. 
+
+Layer Stackup:
+The layer stackup for the VNA calibration board is set as a 2-layer board. 
+This board can be laser cut, but vias will need to be drilled as well. 
+
+Design Rules:
+To ensure no signal integrity problems occur during the Vector network analyzer calibration, the distance between the ground shape and output trace between SMA 
+connectors on either end of the board needs to be a length of at least 0.47mm. This was found through a microstrip calculator. 
+Additionally, it is also important to check the distance between both SMA connectors located on across the PCB.
+This distance should follow the 3*Width theory, and will at a minimum need to be 1.41mm. 
+These requirements are necessary to ensure that the IPC-2221 Standard is upheld.
+
+Note: A clean ERC and DRC are required before design can be manufactured.
+
+Manufacturing Requirements:
+Download gerber files and ensure layout is accurately placed.
